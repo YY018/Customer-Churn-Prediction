@@ -57,10 +57,20 @@ html, body, [class*="css"], .stApp {{
     font-family: 'Figtree', sans-serif;
     color: {INK};
 }}
-.stApp {{
+/* Newer Streamlit paints its own background on inner containers, which
+   covers .stApp, so set the page background on all of them */
+.stApp,
+[data-testid="stApp"],
+[data-testid="stAppViewContainer"] {{
     background:
         radial-gradient(900px 400px at 100% -10%, #D8E4F5 0%, transparent 60%),
-        {PAPER};
+        {PAPER} !important;
+}}
+[data-testid="stMain"],
+[data-testid="stMainBlockContainer"],
+[data-testid="stHeader"],
+[data-testid="stBottom"] {{
+    background: transparent !important;
 }}
 #MainMenu, footer, header {{ visibility: hidden; }}
 .block-container {{ padding-top: 2.2rem; max-width: 1250px; }}
@@ -141,37 +151,36 @@ div[data-baseweb="select"] svg {{ fill: {INK} !important; }}
 [data-testid="stSlider"] [data-testid="stTickBarMax"] {{ color: #6A7893; }}
 
 /* ---------- tabs ---------- */
-.stTabs [data-baseweb="tab-list"] {{
+/* No .stTabs prefix: newer Streamlit versions changed that wrapper,
+   so target the tab buttons directly */
+[data-baseweb="tab-list"] {{
     gap: 6px;
     border-bottom: 1px solid #E3E9F3;
 }}
-.stTabs [data-baseweb="tab"] {{
+button[data-baseweb="tab"],
+[data-testid="stTab"] {{
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     padding: .6rem 1rem;
     border-radius: 10px 10px 0 0;
     background: transparent !important;
+    opacity: 1 !important;
 }}
-/* Streamlit sets tab label colour on the inner <p>, so target it directly
-   (otherwise inactive tabs stay white in dark mode) */
-.stTabs [data-baseweb="tab"],
-.stTabs [data-baseweb="tab"] p,
-.stTabs [data-baseweb="tab"] div,
-.stTabs [data-baseweb="tab"] span {{
+button[data-baseweb="tab"] *,
+[data-testid="stTab"] * {{
     color: #5B6785 !important;
     -webkit-text-fill-color: #5B6785 !important;
+    opacity: 1 !important;
 }}
-.stTabs [data-baseweb="tab"]:hover,
-.stTabs [data-baseweb="tab"]:hover p,
-.stTabs [aria-selected="true"],
-.stTabs [aria-selected="true"] p,
-.stTabs [aria-selected="true"] div,
-.stTabs [aria-selected="true"] span {{
+button[data-baseweb="tab"]:hover *,
+button[data-baseweb="tab"][aria-selected="true"] *,
+[data-testid="stTab"]:hover *,
+[data-testid="stTab"][aria-selected="true"] * {{
     color: {INK} !important;
     -webkit-text-fill-color: {INK} !important;
 }}
-.stTabs [data-baseweb="tab-highlight"] {{ background: {INK}; height: 3px; }}
+[data-baseweb="tab-highlight"] {{ background: {INK} !important; height: 3px; }}
 
 /* ---------- submit button ---------- */
 [data-testid="stFormSubmitButton"] button {{
