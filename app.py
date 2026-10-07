@@ -151,9 +151,26 @@ div[data-baseweb="select"] svg {{ fill: {INK} !important; }}
     font-size: 1rem;
     padding: .6rem 1rem;
     border-radius: 10px 10px 0 0;
-    color: #6A7893;
+    background: transparent !important;
 }}
-.stTabs [aria-selected="true"] {{ color: {INK}; }}
+/* Streamlit sets tab label colour on the inner <p>, so target it directly
+   (otherwise inactive tabs stay white in dark mode) */
+.stTabs [data-baseweb="tab"],
+.stTabs [data-baseweb="tab"] p,
+.stTabs [data-baseweb="tab"] div,
+.stTabs [data-baseweb="tab"] span {{
+    color: #5B6785 !important;
+    -webkit-text-fill-color: #5B6785 !important;
+}}
+.stTabs [data-baseweb="tab"]:hover,
+.stTabs [data-baseweb="tab"]:hover p,
+.stTabs [aria-selected="true"],
+.stTabs [aria-selected="true"] p,
+.stTabs [aria-selected="true"] div,
+.stTabs [aria-selected="true"] span {{
+    color: {INK} !important;
+    -webkit-text-fill-color: {INK} !important;
+}}
 .stTabs [data-baseweb="tab-highlight"] {{ background: {INK}; height: 3px; }}
 
 /* ---------- submit button ---------- */
